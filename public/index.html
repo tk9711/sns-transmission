@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="note記事からInstagramとXへ簡単に投稿できる半自動投稿システム">
+  <title>note SNS投稿支援システム</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- ヘッダー -->
+    <header class="header">
+      <h1>📝 note SNS投稿支援システム</h1>
+      <p>note記事をInstagramとXへ簡単に投稿</p>
+    </header>
+
+    <!-- API接続ステータス -->
+    <div class="status-bar" id="statusBar">
+      <div class="status-badge" id="statusX">
+        <span class="status-dot"></span>
+        <span>X API</span>
+      </div>
+      <div class="status-badge" id="statusInstagram">
+        <span class="status-dot"></span>
+        <span>Instagram API</span>
+      </div>
+    </div>
+
+    <!-- メッセージエリア -->
+    <div id="messageArea"></div>
+
+    <!-- アクションボタン -->
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <button class="btn btn-primary" id="loadArticlesBtn">
+        <span>🔄</span>
+        <span>note記事を取得</span>
+      </button>
+    </div>
+
+    <!-- ローディング -->
+    <div class="loading" id="loading" style="display: none;">
+      <div class="spinner"></div>
+      <p style="margin-top: 1rem;">読み込み中...</p>
+    </div>
+
+    <!-- 記事一覧 -->
+    <div class="articles-grid" id="articlesGrid"></div>
+
+    <!-- 空状態 -->
+    <div class="empty-state" id="emptyState">
+      <h3>📚 記事がありません</h3>
+      <p>「note記事を取得」ボタンをクリックして記事を読み込んでください</p>
+    </div>
+  </div>
+
+  <!-- 投稿確認モーダル -->
+  <div class="modal" id="postModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>📤 投稿内容の確認</h2>
+        <button class="close-btn" id="closeModalBtn">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <!-- 選択された記事情報 -->
+        <div style="margin-bottom: 2rem; padding: 1rem; background: var(--bg-primary); border-radius: var(--radius-md);">
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;" id="modalArticleTitle"></h3>
+          <a href="#" target="_blank" id="modalArticleUrl" style="color: var(--accent-primary); text-decoration: none; font-size: 0.9rem;">記事を開く →</a>
+        </div>
+
+        <!-- X投稿 -->
+        <div class="post-section">
+          <h3>
+            <span>𝕏</span>
+            <span>X (Twitter) 投稿文</span>
+          </h3>
+          <textarea id="xPostText" maxlength="280" placeholder="X用の投稿文を入力..."></textarea>
+          <div class="char-count" id="xCharCount">0 / 280</div>
+        </div>
+
+        <!-- Instagram投稿 -->
+        <div class="post-section">
+          <h3>
+            <span>📷</span>
+            <span>Instagram キャプション</span>
+          </h3>
+          <textarea id="instagramPostText" placeholder="Instagram用のキャプションを入力..."></textarea>
+          <div style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.85rem;">
+            画像: <span id="instagramImageUrl"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelBtn">キャンセル</button>
+        <button class="btn btn-primary" id="postToXBtn">
+          <span>𝕏</span>
+          <span>Xに投稿</span>
+        </button>
+        <button class="btn btn-primary" id="postToInstagramBtn">
+          <span>📷</span>
+          <span>Instagramに投稿</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="/js/app.js"></script>
+</body>
+</html>
