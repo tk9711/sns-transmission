@@ -7,7 +7,14 @@
     "start": "node server.js",
     "dev": "node server.js"
   },
-  "keywords": ["note", "instagram", "twitter", "x", "sns", "posting"],
+  "keywords": [
+    "note",
+    "instagram",
+    "twitter",
+    "x",
+    "sns",
+    "posting"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
@@ -15,5 +22,8 @@
     "axios": "^1.6.0",
     "dotenv": "^16.3.1",
     "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
