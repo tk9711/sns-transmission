@@ -11,7 +11,20 @@ note記事からInstagramとXへ半自動投稿できるWebアプリケーショ
 - 📷 Instagramへの即時投稿
 - 🎨 モダンでプレミアムなUI
 
-## 🚀 セットアップ
+## ⚡ クイックスタート
+
+```bash
+git clone https://github.com/tk9711/sns-transmission.git
+cd sns-transmission
+```
+
+**Mac:** `start.command` をダブルクリック  
+**Windows:** `start.bat` をダブルクリック
+
+> 初回起動時は自動で依存関係のインストールと `.env` ファイルの作成が行われます。
+> `.env` ファイルにAPI認証情報を入力後、再度スクリプトを実行してください。
+
+## 🚀 セットアップ（詳細）
 
 ### 0. Node.jsのインストール
 
