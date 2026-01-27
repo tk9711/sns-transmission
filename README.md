@@ -49,11 +49,22 @@ PORT=3000
 
 ### 3. サーバーの起動
 
+**Mac/Linux:**
 ```bash
 npm start
 ```
+または `start.command` をダブルクリック
+
+**Windows:**
+`start.bat` をダブルクリック
 
 ブラウザで `http://localhost:3000` にアクセスしてください。
+
+### 4. サーバーの停止
+
+**Mac/Linux:** `Ctrl+C` または `stop.command` をダブルクリック
+
+**Windows:** `Ctrl+C` または `stop.bat` をダブルクリック
 
 ## 🔑 API認証情報の取得方法
 
