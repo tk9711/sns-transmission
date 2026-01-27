@@ -1,28 +1,28 @@
 @echo off
-chcp 65001 >nul
 
-REM note SNS投稿支援システム 停止スクリプト (Windows版)
+REM note SNS Posting System - Stop Script (Windows)
 
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-echo ⏹  note SNS投稿支援システムを停止します
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo ========================================
+echo   Stopping note SNS Posting System
+echo ========================================
 echo.
 
-REM ポート3000を使用しているプロセスを検索して停止
-echo 🔍 実行中のサーバーを検索しています...
+REM Find and stop process using port 3000
+echo [INFO] Searching for running server...
 
+set PID=
 for /f "tokens=5" %%a in ('netstat -aon ^| findstr ":3000" ^| findstr "LISTENING"') do (
     set PID=%%a
 )
 
 if not defined PID (
-    echo ℹ️  実行中のサーバーが見つかりませんでした
+    echo [INFO] No running server found.
 ) else (
-    echo 🛑 サーバーを停止しています... (PID: %PID%)
+    echo [INFO] Stopping server... (PID: %PID%)
     taskkill /F /PID %PID% >nul 2>&1
-    echo ✅ サーバーを停止しました
+    echo [OK] Server stopped.
 )
 
 echo.
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo ========================================
 pause

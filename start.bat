@@ -1,64 +1,67 @@
 @echo off
-chcp 65001 >nul
 
-REM note SNS投稿支援システム 起動スクリプト (Windows版)
+REM note SNS Posting System - Start Script (Windows)
 
-REM スクリプトのディレクトリに移動
+REM Move to script directory
 cd /d "%~dp0"
 
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-echo 📝 note SNS投稿支援システム
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo ========================================
+echo   note SNS Posting System
+echo ========================================
 echo.
-echo 🚀 サーバーを起動しています...
+echo Starting server...
 echo.
 
-REM Node.jsがインストールされているか確認
+REM Check if Node.js is installed
 where node >nul 2>&1
 if %ERRORLEVEL% NEQ 0 (
-    echo ❌ エラー: Node.jsがインストールされていません
-    echo    https://nodejs.org/ からインストールしてください
+    echo [ERROR] Node.js is not installed.
+    echo         Please install from https://nodejs.org/
     echo.
     pause
     exit /b 1
 )
 
-REM node_modulesがあるか確認
+REM Check if node_modules exists
 if not exist "node_modules" (
-    echo 📦 初回起動: 依存関係をインストールしています...
+    echo [INFO] First run: Installing dependencies...
     call npm install
+    if %ERRORLEVEL% NEQ 0 (
+        echo [ERROR] npm install failed.
+        pause
+        exit /b 1
+    )
     echo.
 )
 
-REM .envファイルがあるか確認
+REM Check if .env exists
 if not exist ".env" (
-    echo ⚠️  警告: .envファイルが見つかりません
-    echo    .env.exampleをコピーして.envを作成します...
+    echo [WARNING] .env file not found.
+    echo           Creating from .env.example...
     copy .env.example .env >nul
-    echo    ✅ .envファイルを作成しました
+    echo           .env file created.
     echo.
-    echo 📝 次のステップ:
-    echo    1. .envファイルを開いてAPI認証情報を設定してください
-    echo    2. このスクリプトを再度実行してください
+    echo [NEXT STEPS]
+    echo   1. Open .env file and set your API credentials
+    echo   2. Run this script again
     echo.
     pause
     notepad .env
     exit /b 0
 )
 
-echo ✅ 準備完了
+echo [OK] Ready to start
 echo.
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-echo 🌐 ブラウザで以下のURLを開いてください:
-echo    http://localhost:3000
+echo ========================================
+echo   Open in browser: http://localhost:3000
 echo.
-echo ⏹  停止するには: Ctrl+C を押してください
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo   Press Ctrl+C to stop the server
+echo ========================================
 echo.
 
-REM ブラウザを自動的に開く（2秒待機後）
+REM Open browser after 2 seconds
 timeout /t 2 /nobreak >nul
 start http://localhost:3000
 
-REM サーバーを起動
+REM Start server
 call npm start
