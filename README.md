@@ -13,6 +13,29 @@ note記事からInstagramとXへ半自動投稿できるWebアプリケーショ
 
 ## 🚀 セットアップ
 
+### 0. Node.jsのインストール
+
+このアプリケーションには **Node.js v18以上** が必要です。
+
+**Mac:**
+
+1. [Homebrew](https://brew.sh/) がインストールされている場合:
+   ```bash
+   brew install node
+   ```
+
+2. または [Node.js公式サイト](https://nodejs.org/) からmacOS用インストーラーをダウンロードして実行
+
+**Windows:**
+
+1. [Node.js公式サイト](https://nodejs.org/) にアクセス
+2. 「LTS」版（推奨）をダウンロード
+3. ダウンロードした `.msi` ファイルを実行してインストール
+4. インストール完了後、コマンドプロンプトで確認:
+   ```cmd
+   node --version
+   ```
+
 ### 1. 依存関係のインストール
 
 ```bash
