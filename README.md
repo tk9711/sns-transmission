@@ -187,6 +187,34 @@ SNStransmission/
 - 📊 投稿分析・レポート
 - 🎨 画像生成・加工機能
 
+## 🌍 インターネット上での運用（デプロイ）
+
+このアプリケーションをインターネット上で公開するには、以下のサービスがおすすめです。
+
+### 推奨: Render.com（無料枠あり）
+
+最も簡単にデプロイできる方法です。
+
+1. [Render.com](https://render.com/) に登録
+2. 「New +」ボタンから **「Web Service」** を選択
+3. **「Build and deploy from a Git repository」** を選択
+4. GitHubと連携し、このリポジトリ（`sns-transmission`）を選択
+5. 設定画面で以下を入力:
+   - **Name**: アプリ名（例: `my-sns-app`）
+   - **Environment**: `Node`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+6. **Environment Variables** (環境変数) セクションで以下を追加:
+   - `NOTE_RSS_URL`
+   - `X_API_KEY` 等、`.env` にある値をすべてコピーして入力
+7. **Create Web Service** をクリック
+
+数分でデプロイが完了し、発行されたURL（例: `https://my-sns-app.onrender.com`）からアクセスできるようになります。
+
+> [!WARNING]
+> インターネット上に公開する場合は、`X_API_KEY` などの秘密情報が漏洩しないよう十分注意してください。
+> また、Basic認証などのアクセス制限をかけることを強く推奨します。
+
 ## 📄 ライセンス
 
 MIT License
