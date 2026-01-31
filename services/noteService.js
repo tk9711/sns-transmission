@@ -86,6 +86,11 @@ class NoteService {
                 thumbnail = this.extractAttribute(itemXml, 'enclosure', 'url');
             }
 
+            // クエリパラメータを除去して高画質版（オリジナル）を取得
+            if (thumbnail) {
+                thumbnail = thumbnail.split('?')[0];
+            }
+
             // 記事IDを生成（guidまたはlinkから）
             const id = guid || link;
 
