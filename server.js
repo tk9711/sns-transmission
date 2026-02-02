@@ -24,7 +24,7 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     secure: process.env.NODE_ENV === 'production', // 本番環境（HTTPS）ではtrueにする
-    maxAge: 24 * 60 * 60 * 1000 // 24時間
+    // maxAge: 24 * 60 * 60 * 1000 // 永続化を無効化（ブラウザを閉じるとログアウト）
   }
 }));
 
