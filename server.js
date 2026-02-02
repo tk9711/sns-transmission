@@ -1,10 +1,20 @@
-const cors = require('cors');
-const path = require('path');
-const noteRoutes = require('./routes/note');
-const postRoutes = require('./routes/post');
 require('dotenv').config();
+const crypto = require('crypto');
 const express = require('express');
 const session = require('express-session');
+const cors = require('cors');
+const path = require('path');
+
+const noteRoutes = require('./routes/note');
+const postRoutes = require('./routes/post');
+
+// ランダムなパスワードを生成（8文字）
+const generatePassword = () => {
+  return crypto.randomBytes(4).toString('hex');
+};
+
+// 起動時にパスワードを生成
+const SESSION_PASSWORD = generatePassword();
 
 const app = express();
 
@@ -56,9 +66,12 @@ app.post('/api/auth/login', (req, res) => {
   const { username, password } = req.body;
 
   const validUser = process.env.APP_USER || 'admin';
-  const validPass = process.env.APP_PASSWORD || 'password';
+  const masterPass = process.env.APP_PASSWORD; // .envに設定があればマスターパスワードとして機能
 
-  if (username === validUser && password === validPass) {
+  // 生成されたパスワード または マスターパスワードと一致するか確認
+  const isValid = (password === SESSION_PASSWORD) || (masterPass && password === masterPass);
+
+  if (username === validUser && isValid) {
     // セッションIDを再生成してセッション固定攻撃を防ぐ＆確実に新規セッションにする
     req.session.regenerate((err) => {
       if (err) {
@@ -112,5 +125,8 @@ app.use((err, req, res, next) => {
 // サーバー起動
 app.listen(PORT, () => {
   console.log(`🚀 サーバーが起動しました: http://localhost:${PORT}`);
+  console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+  console.log(`🔑 本日のログインパスワード: ${SESSION_PASSWORD}`);
+  console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
   console.log(`📝 note SNS投稿支援システム`);
 });
