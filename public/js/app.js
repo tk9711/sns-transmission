@@ -56,6 +56,21 @@ function initEventListeners() {
             closeModal();
         }
     });
+
+    // ログアウトボタン
+    document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+        if (!confirm('ログアウトしますか？')) return;
+
+        try {
+            const response = await fetch('/api/auth/logout', { method: 'POST' });
+            if (response.ok) {
+                window.location.href = '/login.html';
+            }
+        } catch (error) {
+            console.error('ログアウトエラー:', error);
+            alert('ログアウトに失敗しました');
+        }
+    });
 }
 
 /**
@@ -64,6 +79,12 @@ function initEventListeners() {
 async function checkAPIStatus() {
     try {
         const response = await fetch('/api/post/status');
+
+        if (response.status === 401) {
+            window.location.href = '/login.html';
+            return;
+        }
+
         const result = await response.json();
 
         if (result.success) {
@@ -97,6 +118,12 @@ async function loadArticles() {
 
     try {
         const response = await fetch('/api/note/articles');
+
+        if (response.status === 401) {
+            window.location.href = '/login.html';
+            return;
+        }
+
         const result = await response.json();
 
         if (!result.success) {

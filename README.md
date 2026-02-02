@@ -81,7 +81,16 @@ INSTAGRAM_BUSINESS_ACCOUNT_ID=your_instagram_business_account_id
 
 # サーバー設定
 PORT=3000
+
+# 認証設定（ログイン用）
+APP_USER=admin
+APP_PASSWORD=password
+SESSION_SECRET=your_random_secret_string
 ```
+
+> [!IMPORTANT]
+> 公開環境では必ず認証設定を行い、推測されにくいユーザー名・パスワード・SESSION_SECRETを設定してください。
+
 
 ### 3. サーバーの起動
 
