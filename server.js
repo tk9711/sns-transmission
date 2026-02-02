@@ -19,6 +19,7 @@ app.use(express.json());
 
 // セッション設定
 app.use(session({
+  name: 'sns_app_sid', // クッキー名を変更して古いセッションと分離
   secret: process.env.SESSION_SECRET || 'secret_key',
   resave: false,
   saveUninitialized: false,
@@ -58,8 +59,15 @@ app.post('/api/auth/login', (req, res) => {
   const validPass = process.env.APP_PASSWORD || 'password';
 
   if (username === validUser && password === validPass) {
-    req.session.isAuthenticated = true;
-    res.json({ success: true, message: 'ログイン成功' });
+    // セッションIDを再生成してセッション固定攻撃を防ぐ＆確実に新規セッションにする
+    req.session.regenerate((err) => {
+      if (err) {
+        return res.status(500).json({ success: false, error: 'ログイン処理に失敗しました' });
+      }
+
+      req.session.isAuthenticated = true;
+      res.json({ success: true, message: 'ログイン成功' });
+    });
   } else {
     res.status(401).json({ success: false, error: 'ユーザー名またはパスワードが間違っています' });
   }
