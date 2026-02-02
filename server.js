@@ -50,7 +50,8 @@ const requireAuth = (req, res, next) => {
 };
 
 // 静的ファイルの提供（認証不要なlogin.htmlなどを先に提供）
-app.use(express.static('public'));
+// index: false にして、ルート（/）へのアクセスを下の app.get('/', ...) で処理させる
+app.use(express.static('public', { index: false }));
 
 // 認証ルート
 app.post('/api/auth/login', (req, res) => {
