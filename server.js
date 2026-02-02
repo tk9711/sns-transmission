@@ -7,6 +7,10 @@ const express = require('express');
 const session = require('express-session');
 
 const app = express();
+
+// Render.comなどのプロキシ環境でCookie/Sessionを正しく動作させる設定
+app.set('trust proxy', 1);
+
 const PORT = process.env.PORT || 3000;
 
 // ミドルウェア
